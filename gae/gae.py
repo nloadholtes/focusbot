@@ -63,50 +63,38 @@ class IMProperty(ndb.StringProperty):
         return str(value)
 
     def _from_base_type(self, value):
-        """Converts datastore type (string) to native type (datastore_types.IM).
-
+        """Converts datastore type (string) to native type (datastore_types.IM)
         Args:
             value: The value to be converted. Should be a string.
-
         Returns:
             String corresponding to the IM value.
         """
         return datastore_types.IM(value)
 
 
-
 def bare_jid(sender):
-
     """Identify the user by bare jid.
-
     See http://wiki.xmpp.org/web/Jabber_Resources for more details.
-
     Args:
         sender: String; A jabber or XMPP sender.
-
     Returns:
         The bare Jabber ID of the sender.
     """
-
     return sender.split('/')[0]
 
 
 class XmppHandler(xmpp_handlers.CommandHandler):
     """Handler class for all XMPP activity."""
 
-
     def unhandled_command(self, message=None):
         """Shows help text for commands which have no handler.
-
         Args:
             message: xmpp.Message: The message that was sent by the user.
         """
         message.reply(HELP_MSG.format(self.request.host_url))
 
-
     def askme_command(self, message=None):
         """Responds to the /askme command.
-
         Args:
             message: xmpp.Message: The message that was sent by the user.
         """
@@ -121,17 +109,15 @@ class XmppHandler(xmpp_handlers.CommandHandler):
         if currently_answering:
             currently_answering.unassign(im_from)
 
-
-
     def text_message(self, message=None):
-        """Called when a message not prefixed by a /cmd is sent to the XMPP bot.
-
+        """Called when a message not prefixed by a /cmd is sent to the XMPP bot
         Args:
             message: xmpp.Message: The message that was sent by the user.
         """
         im_from = datastore_types.IM('xmpp', bare_jid(message.sender))
         question = None #Question.get_answering(im_from)
         if question:
+            pass
             # other_assignees = question.assignees
             # other_assignees.remove(im_from)
 
@@ -162,8 +148,6 @@ class XmppHandler(xmpp_handlers.CommandHandler):
         else:
             self.unhandled_command(message)
 
-
-
     def tellme_command(self, message=None):
         """Handles /tellme requests, asking the Guru a question.
 
@@ -191,8 +175,6 @@ class XmppHandler(xmpp_handlers.CommandHandler):
         message.reply(PONDER_MSG)
 
 
-
-
 class XmppPresenceHandler(webapp2.RequestHandler):
     """Handler class for XMPP status updates."""
 
@@ -213,7 +195,6 @@ class XmppPresenceHandler(webapp2.RequestHandler):
         if question:
             question.suspended = suspend
             question.put()
-
 
 
 class LatestHandler(webapp2.RequestHandler):
@@ -245,12 +226,8 @@ class LatestHandler(webapp2.RequestHandler):
                 -Question.answered)
         self.render_response('latest.html', questions=query.fetch(20))
 
-
-
 APPLICATION = webapp2.WSGIApplication([
-
         ('/', LatestHandler),
-
         ('/_ah/xmpp/message/chat/', XmppHandler),
         ('/_ah/xmpp/presence/(available|unavailable)/', XmppPresenceHandler),
         ], debug=True)
