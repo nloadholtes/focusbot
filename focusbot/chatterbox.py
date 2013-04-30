@@ -13,3 +13,10 @@ class ChatterBox:
         if not self.pomodoro:
             self.pomodoro = Pomodoro()
         return self.pomodoro.startPomodoro()
+
+    def process(self, text):
+        if "pomodoro" in text.lower():
+            self.startPomodoro()
+            return "Starting"
+        else:
+            return "Huh?"
