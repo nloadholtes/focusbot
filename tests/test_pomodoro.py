@@ -13,3 +13,18 @@ class TestPomodoro():
 
     def test_startPomodoro(self):
         assert_equals(True, self.p.startPomodoro())
+
+    def test_startPomodoro_already_started(self):
+        self.p.startPomodoro()
+        assert_equals(True, self.p.startPomodoro())
+
+    def test_markInterruption(self):
+        assert_equals(1, self.p.markInterruption())
+
+    def test_markInterruption_twice(self):
+        self.p.markInterruption()
+        assert_equals(2, self.p.markInterruption())
+
+    def test_getInterruptionCount(self):
+        self.p.markInterruption()
+        assert_equals(1, self.p.getInterruptionCount())
