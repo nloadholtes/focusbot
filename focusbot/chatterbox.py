@@ -9,8 +9,12 @@ def _isIn(list_a, list_b):
     result = set(list_a).intersection(list_b)
     return True if len(result) > 0 else False
 
+START_WORDS = ["start", "begin", "now"]
+STOP_WORDS = ["stop", "quit", "end"]
+
 
 class ChatterBox:
+
     def __init__(self):
         self.pomodoro = None
 
@@ -19,10 +23,19 @@ class ChatterBox:
             self.pomodoro = Pomodoro()
         return self.pomodoro.startPomodoro()
 
+    def stopPomodoro(self):
+        if not self.pomodoro:
+            return
+        return self.pomodoro.endPomodoro()
+
     def process(self, text):
         text = text.lower().split()
         if "pomodoro" in text:
-            self.startPomodoro()
-            return "Starting"
+            if _isIn(START_WORDS, text):
+                self.startPomodoro()
+                return "Starting"
+            elif _isIn(STOP_WORDS, text):
+                self.stopPomodoro()
+                return "Stoping"
         else:
             return "Huh?"
