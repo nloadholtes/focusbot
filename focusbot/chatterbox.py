@@ -5,7 +5,7 @@
 from focusbot.pomodoro import Pomodoro
 
 
-def _testIntersection(list_a, list_b):
+def _isIn(list_a, list_b):
     result = set(list_a).intersection(list_b)
     return True if len(result) > 0 else False
 
