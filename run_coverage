@@ -1,0 +1,1 @@
+nosetests --with-coverage --cover-inclusive --cover-package .; coverage html --omit="tests/*,/home/njl/Envs/focusbot/lib/python2.6/site-packages/*"
