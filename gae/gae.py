@@ -99,15 +99,15 @@ class XmppHandler(xmpp_handlers.CommandHandler):
             message: xmpp.Message: The message that was sent by the user.
         """
         im_from = datastore_types.IM('xmpp', bare_jid(message.sender))
-        currently_answering = Question.get_answering(im_from)
-        question = Question.assign_question(im_from)
-        if question:
-            message.reply(TELLME_MSG.format(question.question))
-        else:
-            message.reply(EMPTYQ_MSG)
-        # Don't unassign their current question until we've picked a new one.
-        if currently_answering:
-            currently_answering.unassign(im_from)
+        # currently_answering = Question.get_answering(im_from)
+        # question = Question.assign_question(im_from)
+        # if question:
+        #     message.reply(TELLME_MSG.format(question.question))
+        # else:
+        #     message.reply(EMPTYQ_MSG)
+        # # Don't unassign their current question until we've picked a new one.
+        # if currently_answering:
+        #     currently_answering.unassign(im_from)
 
     def text_message(self, message=None):
         """Called when a message not prefixed by a /cmd is sent to the XMPP bot
@@ -188,13 +188,13 @@ class XmppPresenceHandler(webapp2.RequestHandler):
         sender = self.request.get('from')
         im_from = datastore_types.IM('xmpp', bare_jid(sender))
         suspend = (status == 'unavailable')
-        query = Question.filter(Question.asker == im_from,
-                                Question.answer == None,
-                                Question.suspended == (not suspend))
-        question = query.get()
-        if question:
-            question.suspended = suspend
-            question.put()
+        # query = Question.filter(Question.asker == im_from,
+        #                         Question.answer == None,
+        #                         Question.suspended == (not suspend))
+        # question = query.get()
+        # if question:
+        #     question.suspended = suspend
+        #     question.put()
 
 
 class LatestHandler(webapp2.RequestHandler):
@@ -222,9 +222,9 @@ class LatestHandler(webapp2.RequestHandler):
 
     def get(self):
         """Handler for latest questions page."""
-        query = Question.query(Question.answered > None).order(
-                -Question.answered)
-        self.render_response('latest.html', questions=query.fetch(20))
+        # query = Question.query(Question.answered > None).order(
+        #         -Question.answered)
+        self.render_response('latest.html') #, questions=query.fetch(20))
 
 APPLICATION = webapp2.WSGIApplication([
         ('/', LatestHandler),
