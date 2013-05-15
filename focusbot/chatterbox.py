@@ -28,6 +28,14 @@ class ChatterBox:
             return
         return self.pomodoro.endPomodoro()
 
+    def startPomodoroRest(self):
+        if self.pomodoro and not self.pomodoro.inprogress:
+            self.pomodoro.startRest()
+
+    def stopPomodoroRest(self):
+        if self.pomodoro and not self.pomodoro.inprogress:
+            self.pomodoro.startRest()
+
     def process(self, text):
         text = text.lower().split()
         if "pomodoro" in text:

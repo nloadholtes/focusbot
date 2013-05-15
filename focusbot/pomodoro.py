@@ -24,3 +24,9 @@ class Pomodoro:
 
     def getInterruptionCount(self):
         return self.interruption_count
+
+    def startPomordoroRest(self):
+        pass
+
+    def stopPomordoroRest(self):
+        pass
