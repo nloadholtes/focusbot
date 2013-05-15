@@ -9,7 +9,7 @@ def _isIn(list_a, list_b):
     result = set(list_a).intersection(list_b)
     return True if len(result) > 0 else False
 
-START_WORDS = ["start", "begin", "now"]
+START_WORDS = ["start", "begin", "now", "yes"]
 STOP_WORDS = ["stop", "quit", "end"]
 
 
