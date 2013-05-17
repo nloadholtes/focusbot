@@ -7,6 +7,7 @@ class Pomodoro:
     def __init__(self):
         self.inprogress = False
         self.interruption_count = 0
+        self.timemanager = None
 
     def startPomodoro(self):
         if not self.inprogress:
@@ -26,7 +27,9 @@ class Pomodoro:
         return self.interruption_count
 
     def startPomordoroRest(self):
+        #start rest timer
         pass
 
     def stopPomordoroRest(self):
+        #stop rest timer
         pass
