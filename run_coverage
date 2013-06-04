@@ -1,1 +1,1 @@
-nosetests --with-coverage --cover-inclusive --cover-package .; coverage html --omit="tests/*"
+nosetests --with-coverage --cover-inclusive --cover-erase ; coverage html --omit="tests/*"
